@@ -12,7 +12,7 @@ int main(int ac, const char* av[]) {
 	double loudness;
 
 	if (ac != 2) {
-      exit(1); //ERROR CODE 1: Exactly one input file is expected.   
+		exit(1); //ERROR CODE 1: Exactly one input file is expected.   
   	}
 
   	state = malloc((size_t) sizeof(ebur128_state*));
