@@ -9,10 +9,10 @@ Raw PCM (24-bit, 48000 kHz, big endian) delivered in the form of multicast IP/UD
 ###How does this work?
 `rtpdump` is used to capture the audio payload from each RTP packet into a temporary file. The EBU R128 short-term (3 sec.) loudness is then computed with a small C program written to handle 24/48 big-endian raw PCM. Results are printed to stdout.
 ###Setup and Use
-Get `rtpdump`
-Get `libsndfile` and `libebur128`, and then compile livewireScan.c.
-Update the location of `rtpdump` and `livewireScan` in axiaLufs.py 
-Run axiaLUFS.py with the Livewire channel you'd like to meter.
+* First get `rtpdump`.
+* Next get `libsndfile` and `libebur128`, and then compile livewireScan.c.
+* Update the location of `rtpdump` and `livewireScan` in axiaLufs.py 
+* Run axiaLUFS.py with the Livewire channel you'd like to meter.
 ```bash
 $ axiaLUFS 32767
 ```
