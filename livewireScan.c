@@ -16,9 +16,9 @@ int main(int ac, const char* av[]) {
   	}
 
   	state = malloc((size_t) sizeof(ebur128_state*));
-    file_info.format = SF_FORMAT_RAW | SF_FORMAT_PCM_24 | SF_ENDIAN_BIG;
-    file_info.channels = 2;
-    file_info.samplerate = 48000;
+    	file_info.format = SF_FORMAT_RAW | SF_FORMAT_PCM_24 | SF_ENDIAN_BIG;
+    	file_info.channels = 2;
+    	file_info.samplerate = 48000;
   	file = sf_open(av[1], SFM_READ, &file_info);
 	state = ebur128_init((unsigned) file_info.channels, (unsigned) file_info.samplerate, EBUR128_MODE_I);
 
