@@ -7,7 +7,7 @@ Axia Livewire is an IP networked audio protocol used in broadcast. Among other t
 ###What does a Livewire audio stream look like?
 Raw PCM (stereo interleaved, 24-bit, 48000 kHz, big endian) delivered in the form of multicast IP/UDP/RTP packets.
 ###How does this work?
-`rtpdump` is used to capture the audio payload from each RTP packet into a temporary file. The EBU R128 short-term (3 sec.) loudness is then computed with a small C program written to handle stereo 24/48 big-endian raw PCM. Short-term loudness is printed to stdout every three seconds.
+`rtpdump` is used to capture the audio payload from each RTP packet into a temporary file. The EBU R128 short-term loudness is then computed by a small C program built to handle stereo 24/48 big-endian raw PCM. Short-term loudness is printed to stdout every three seconds.
 ###Setup and Use
 * First get `rtpdump`.
 * Next get `libsndfile` and `libebur128`, and then compile livewireScan.c.
