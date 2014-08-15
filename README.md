@@ -1,8 +1,7 @@
 AXIA-LUFS
 =========
-
 An EBU R128 short-term (3 sec.) loudness meter for Axia Livewire streams. I wish this was more elegant and less naïve, but at this point it's more of a proof of concept. More importantly, it works!
---------
+
 ###What is Axia Livewire?
 Axia Livewire is a IP networked audio protocol used in broadcast. Among other things, it allows 32767 channels of raw multicast PCM audio distributed over a standard IP network. Axia <a href="http://axiaaudio.com/xnodes">nodes</a> are connected to the network and provide audio I/O.
 ###What does a Livewire audio stream look like?
