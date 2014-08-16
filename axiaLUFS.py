@@ -8,4 +8,4 @@ if len(sys.argv) != 2:
 	sys.exit(1)
 else:
 	multicastAddr = int(sys.argv[1]) + 0xEFC00000 #Axia channel number + base IP (239.192.0.0 [in hex])
-	os.system(AXIALUFS_BIN + " " + TEMPFILE_LOC)
+	os.system(RTPDUMP_BIN + " -F payload " + hex(multicastAddr) + "/5004 | " + AXIALUFS_BIN + " -")
