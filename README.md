@@ -11,7 +11,7 @@ Raw PCM (stereo interleaved, 24-bit, 48000 kHz, big endian) delivered in the for
 ###Setup and Use
 * First get `rtpdump`.
 * Next get `libsndfile` and `libebur128`, and then compile axialufs.c.
-* Update the location of `rtpdump` and `axiascan` in axialufs.py 
+* Update the location of `rtpdump` and `axialufs` in axialufs.py 
 * Run axiaLUFS.py with the Livewire channel you'd like to meter.
 ```bash
 $ axiaLUFS 32767
