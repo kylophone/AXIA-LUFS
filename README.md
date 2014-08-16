@@ -10,8 +10,8 @@ Raw PCM (stereo interleaved, 24-bit, 48000 kHz, big endian) delivered in the for
 `rtpdump` is used to capture the audio payload from each RTP packet, and then this data is piped to a small C program which analyzes and displays the short-term (400ms) and momentary (3 sec) loudness.
 ###Setup and Use
 * First get `rtpdump`.
-* Next get `libsndfile` and `libebur128`, and then compile axiascan.c.
-* Update the location of `rtpdump` and `axiascan` in axiaLufs.py 
+* Next get `libsndfile` and `libebur128`, and then compile axialufs.c.
+* Update the location of `rtpdump` and `axiascan` in axialufs.py 
 * Run axiaLUFS.py with the Livewire channel you'd like to meter.
 ```bash
 $ axiaLUFS 32767
