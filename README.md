@@ -7,7 +7,7 @@ Axia Livewire is an IP networked audio protocol used in broadcast. Among other t
 ###What does a Livewire audio stream consist of?
 Raw PCM (stereo interleaved, 24-bit, 48000 kHz, big endian) delivered in the form of multicast IP/UDP/RTP packets.
 ###How does this work?
-`rtpdump` is used to capture the audio payload from each RTP packet, and then this data is piped to a small C program which analyzes and displays the short-term (400ms) and momentary (3 sec) loudness.
+`rtpdump` is used to capture the audio payload from each RTP packet, and then this data is piped to a small C program which analyzes and displays the momentary (400ms) and short-term (3 sec) loudness.
 ###Setup and Use
 * First get `rtpdump`.
 * Next get `libsndfile` and `libebur128`, and then compile axialufs.c.
