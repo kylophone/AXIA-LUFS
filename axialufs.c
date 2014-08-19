@@ -8,7 +8,7 @@ int main(int ac, const char* av[]) {
 	SNDFILE* file;
 	sf_count_t nr_frames_read;
 	ebur128_state* state = NULL;
-	double buffer[4800 * 2]; // 100ms Stereo 24/48k PCM Buffer
+	double buffer[4800 * 2]; // 100ms
 	double momentaryLoudness;
   double shortTermLoudness;
 
