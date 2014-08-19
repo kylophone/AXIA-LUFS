@@ -8,7 +8,7 @@ int main(int ac, const char* av[]) {
 	SNDFILE* file;
 	sf_count_t nr_frames_read;
 	ebur128_state* state = NULL;
-	double buffer[320 * 2]; // 400ms Stereo 24/48k PCM Buffer
+	double buffer[4800 * 2]; // 100ms Stereo 24/48k PCM Buffer
 	double momentaryLoudness;
   double shortTermLoudness;
 
@@ -25,7 +25,7 @@ int main(int ac, const char* av[]) {
 
 
   fprintf(stderr, "Momentary | Short-Term\n");
-	while (0 < (nr_frames_read = sf_readf_double(file, buffer, 320))) {  //read 320 frames, i.e. 400ms
+	while (0 < (nr_frames_read = sf_readf_double(file, buffer, 4800))) {  //read 4800 frames, i.e. 100ms
       ebur128_add_frames_double(state, buffer, (size_t) nr_frames_read);
       ebur128_loudness_momentary(state, &momentaryLoudness);
       ebur128_loudness_shortterm(state, &shortTermLoudness);
