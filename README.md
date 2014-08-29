@@ -16,6 +16,6 @@ Raw PCM (stereo interleaved, 24-bit, 48000 kHz, big endian) delivered in the for
 ```bash
 $ axiaLUFS 32767
 ```
-##To Do
-*Remove libsndfile dependancy
-*Figure out oRTP and use it; piping rtpdump is not ideal.
+###To Do
+* Remove libsndfile dependancy
+* Figure out oRTP and use it; piping rtpdump is not ideal.
