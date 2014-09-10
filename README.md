@@ -8,7 +8,7 @@ Axia Livewire is an IP networked audio protocol used in broadcast. Among other t
 Raw PCM (big endian, signed, 24-bit, 48000 kHz, stereo interleaved) delivered in the form of multicast IP/UDP/RTP packets.
 ###How does this work?
 Raw PCM is extracted from each packet. PCM converted to 32-bit float, and handed to libebur128 for loudness measurement.
+###To Do
+Buffer input / confirm packet sequence.
 ###Setup and Use
 * Get `libebur128`, and then compile axialufs.c.
-###To Do
-Buffer input / confirm packet sequence
