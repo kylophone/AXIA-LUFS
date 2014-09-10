@@ -7,15 +7,8 @@ Axia Livewire is an IP networked audio protocol used in broadcast. Among other t
 ###What does a Livewire audio stream consist of?
 Raw PCM (stereo interleaved, 24-bit, 48000 kHz, big endian) delivered in the form of multicast IP/UDP/RTP packets.
 ###How does this work?
-`rtpdump` is used to capture the audio payload from each RTP packet, and then this data is piped to a small C program which analyzes and outputs the momentary (400ms) and short-term (3 sec) loudness.
+Raw PCM is extracted from each packet. PCM converted to 32-bit float, and handed to libebur128 for loudness measurement.
 ###Setup and Use
-* First get `rtpdump`.
-* Next get `libsndfile` and `libebur128`, and then compile axialufs.c.
-* Update the location of `rtpdump` and `axialufs` in axialufs.py 
-* Run axiaLUFS.py with the Livewire channel you'd like to meter.
-```bash
-$ axiaLUFS 32767
-```
+* Get `libebur128`, and then compile axialufs.c.
 ###To Do
-* Remove libsndfile dependancy
-* Figure out oRTP and use it; piping rtpdump is not ideal.
+Buffer input / confirm packet sequence
