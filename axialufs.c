@@ -74,5 +74,6 @@ int main(void)
       fprintf(stderr, "%-2.1f\n", shortTermLoudness);
     } 
   }
+  free(state);
   return 0;
 }
