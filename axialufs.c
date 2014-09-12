@@ -55,6 +55,7 @@ int main(void)
   /* main loop */
   while(1){
     packetLength = recvfrom(sock, packet, sizeof(packet), 0, (struct sockaddr *) &addr, (socklen_t *) &addrlen);
+    
     //sequenceNumber = (packet[2] << 8 | packet[3]);
     //timestamp = (packet[4] << 24 | packet[5] << 16 | packet[6] << 8 | packet[7]);
 
