@@ -71,6 +71,7 @@ int main(void)
     if (frameCounter >= 4800) {
       frameCounter = 0;
       ebur128_loudness_shortterm(state, &shortTermLoudness);
+      //ebur128_loudness_momentary(state, &momentaryLoudness);
       fprintf(stderr, "%-2.1f\n", shortTermLoudness);
     } 
   }
