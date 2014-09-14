@@ -9,6 +9,6 @@ Raw PCM (big endian, signed, 24-bit, 48000 kHz, stereo interleaved) delivered in
 ###How does this work?
 Raw PCM is extracted from each packet. PCM converted to 64-bit float, and handed to libebur128 for loudness measurement.
 ###To Do
-Buffer input / confirm packet sequence.
+Buffer input / confirm packet sequence. (RTP does not guarantee packets arrive in order; xNodes buffer 3 frames on the recieve side IIRC)
 ###Setup and Use
 * Get `libebur128`, and then compile axialufs.c.
