@@ -7,7 +7,6 @@
 #include <strings.h> //bzero
 #include "ebur128.h"
 
-#define EXAMPLE_PORT 5004 // livewire audio is always on this port
 #define EXAMPLE_GROUP "239.192.0.1" // livewire channel number 1
 
 int main(void)
@@ -33,7 +32,7 @@ int main(void)
   bzero((char *)&addr, sizeof(addr));
   addr.sin_family = AF_INET;
   addr.sin_addr.s_addr = htonl(INADDR_ANY);
-  addr.sin_port = htons(EXAMPLE_PORT);
+  addr.sin_port = htons(5004);
   addrlen = sizeof(addr);
 
   if (bind(sock, (struct sockaddr *) &addr, sizeof(addr)) < 0) {        
