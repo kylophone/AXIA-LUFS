@@ -43,7 +43,7 @@
     <script>
       var socket = io.connect();
       socket.on('LUFS', function(data){
-          var shortTermInteger = -Math.floor(-Number(data.shortTerm)) + 24;
+          var shortTermInteger = -Math.floor(-Number(data.shortTerm)) + 24; //zero normalized for -24 LUFS
           if (shortTermInteger >= -2 && shortTermInteger <= 2) {
             $('#bigBox').css('color', '#4AFF77'); //right on
           } else if(shortTermInteger >= 2) {
