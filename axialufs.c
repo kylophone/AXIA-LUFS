@@ -62,7 +62,7 @@ int main(void)
     for (int i = 12; i < packetLength; i += 3) {
       int32_t audioPCM = ((packet[i] << 16) | (packet[i + 1] << 8) | (packet[i + 2]));
       if (audioPCM & 0x800000) audioPCM |= ~0xffffff; // Convert to signed PCM.
-      double audioFloat = (audioPCM * (1.0 / 0x7fffff));
+      double audioFloat = (audioPCM * (1.0 / 0x7fffff)); // Convert to float.
       audioPayload[((i - 12) / 3)] = audioFloat;
     }
 
