@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+  </head>
+  <style>
+    body {
+      background-color: #333;
+    }
+
+    #bigBox {
+    width: 1300px;
+    padding-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    }
+     
+    #largeReadout {
+      font-size: 450px;
+      font-family: HelveticaNeue-Light;
+    }
+
+    #LU{
+      font-size: 35px;
+      font-family: HelveticaNeue-Light;
+    }
+
+    #shortTerm {
+      font-size: 20px;
+    }
+    
+    #momentary {
+      font-size: 20px;
+    }
+
+  </style>
+  <body
+    <div id = "bigBox">
+      <span id="largeReadout"></span>
+      <span id="LU">LU</span>
+    </div>
+    <script>
+      var socket = io.connect();
+      socket.on('LUFS', function(data){
+          var shortTermInteger = -Math.floor(-Number(data.shortTerm)) + 24;
+          if (shortTermInteger >= -2 && shortTermInteger <= 2) {
+            $('#bigBox').css('color', '#4AFF77'); //right on
+          } else if(shortTermInteger >= 2) {
+            $('#bigBox').css('color', '#F54242'); //too hot
+          } else if(shortTermInteger < -2){
+            $('#bigBox').css('color', '#5576FA'); //too cold
+          }
+          if (shortTermInteger > 0) {
+             $('#largeReadout').text("+" + shortTermInteger);  
+          } else {
+             $('#largeReadout').text(shortTermInteger);
+          } 
+      });
+    </script>
+  </body>
+</html>
