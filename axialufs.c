@@ -4,8 +4,10 @@
 #include <arpa/inet.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <strings.h> //bzero
+#include <errno.h>
+#include <string.h>
 #include "ebur128.h"
+
 
 #define EXAMPLE_GROUP "239.192.0.1" // livewire channel number 1
 
@@ -24,29 +26,26 @@ int main(void)
  
   /* set up socket */
   sock = socket(AF_INET, SOCK_DGRAM, 0);
-  if (sock < 0) {
-    perror("socket");
-    exit(1);
+  int reuse = 1;
+  if (setsockopt(sock, SOL_SOCKET, SO_REUSEPORT, &reuse, sizeof(reuse)) == -1) {
+      fprintf(stderr, "setsockopt: %d\n", errno);
+      return 1;
   }
-
-  bzero((char *)&addr, sizeof(addr));
+  
+  memset(&addr, 0, sizeof(addr));
   addr.sin_family = AF_INET;
-  addr.sin_addr.s_addr = htonl(INADDR_ANY);
-  addr.sin_port = htons(5004);
+  addr.sin_port = htons(5004); // Livewire is always on port 5004.
+  addr.sin_addr.s_addr = inet_addr(EXAMPLE_GROUP);
   addrlen = sizeof(addr);
 
-  if (bind(sock, (struct sockaddr *) &addr, sizeof(addr)) < 0) {        
-    perror("bind");
-    exit(1);
-  }    
+  if (bind(sock, (struct sockaddr*) &addr, sizeof(addr)) == -1) {
+      fprintf(stderr, "bind: %d\n", errno);
+      return 1;
+  }
 
   mreq.imr_multiaddr.s_addr = inet_addr(EXAMPLE_GROUP);         
-  mreq.imr_interface.s_addr = htonl(INADDR_ANY);   
-
-  if (setsockopt(sock, IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof(mreq)) < 0) {
-    perror("setsockopt mreq");
-    exit(1);
-  }
+  mreq.imr_interface.s_addr = htonl(INADDR_ANY);
+  setsockopt(sock, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char *)&mreq, sizeof(mreq));
 
   state = malloc((size_t) sizeof(ebur128_state*));
   state = ebur128_init((unsigned) 2, (unsigned) 48000, EBUR128_MODE_S);
