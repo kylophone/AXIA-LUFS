@@ -8,10 +8,7 @@
 #include <string.h>
 #include "ebur128.h"
 
-
-#define EXAMPLE_GROUP "239.192.0.1" // livewire channel number 1
-
-int main(void)
+int main(int argc, const char *argv[])
 {
   struct sockaddr_in addr;
   int addrlen, sock, packetLength;
@@ -23,6 +20,7 @@ int main(void)
   ebur128_state* state = NULL;
   double shortTermLoudness;
   uint16_t frameCounter = 0;
+  const char *multicastAddr = argv[1];
  
   /* set up socket */
   sock = socket(AF_INET, SOCK_DGRAM, 0);
@@ -35,7 +33,7 @@ int main(void)
   memset(&addr, 0, sizeof(addr));
   addr.sin_family = AF_INET;
   addr.sin_port = htons(5004); // Livewire is always on port 5004.
-  addr.sin_addr.s_addr = inet_addr(EXAMPLE_GROUP);
+  addr.sin_addr.s_addr = inet_addr(multicastAddr);
   addrlen = sizeof(addr);
 
   if (bind(sock, (struct sockaddr*) &addr, sizeof(addr)) == -1) {
@@ -43,7 +41,7 @@ int main(void)
       return 1;
   }
 
-  mreq.imr_multiaddr.s_addr = inet_addr(EXAMPLE_GROUP);         
+  mreq.imr_multiaddr.s_addr = inet_addr(multicastAddr);         
   mreq.imr_interface.s_addr = htonl(INADDR_ANY);
   setsockopt(sock, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char *)&mreq, sizeof(mreq));
 
