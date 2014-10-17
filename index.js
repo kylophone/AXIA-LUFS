@@ -8,7 +8,7 @@ app.get('/', function(req, res){
   res.sendfile('index.html');
 });
 
-axiaLufsJSON = spawn(AXIA_LUFS_BIN);
+axiaLufsJSON = spawn(AXIA_LUFS_BIN, ['239.192.0.1']); //Axia channel 1
 
 io.on('connection', function(socket){
   	axiaLufsJSON.stderr.on('data', function (data) { 					
