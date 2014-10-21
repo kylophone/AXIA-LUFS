@@ -14,3 +14,6 @@ PCM from each packet is converted to a 64-bit +1/-1 float, and handed to <a href
 Buffer input / confirm packet sequence. (UDP does not guarantee packets arrive in order; xNodes buffer 15-100ms the recieve side.)
 ###Setup and Use
 * Get `libebur128`, and then compile axialufs.c.
+* Update index.js to point to the compiled axialufs & supply an Axia multicast address.
+* Lauch the node server: `node index.js`
+* Visit `localhost:3000` in your browser.
