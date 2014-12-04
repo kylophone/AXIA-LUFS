@@ -9,7 +9,7 @@ Axia Livewire is an IP networked audio protocol used in broadcast. Among other t
 ###What does a Livewire audio stream consist of?
 Raw PCM (big endian, 24-bit signed, 48000 kHz, stereo interleaved) delivered in the form of multicast IP/UDP/RTP packets.
 ###How does this work?
-PCM from each packet is converted to a series of 64-bit +1/-1 floats, and handed to <a href = "https://github.com/jiixyj/libebur128">libebur128</a> for loudness measurement.
+PCM from each packet is converted to a series of 64-bit +1/-1 floats, which are handed to <a href = "https://github.com/jiixyj/libebur128">libebur128</a> for loudness measurement.
 ###To Do
 Buffer input / confirm packet sequence. (UDP does not guarantee packets arrive in order; xNodes buffer 15-100ms the recieve side.)
 ###Setup and Use
