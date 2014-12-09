@@ -14,8 +14,8 @@ int main(int argc, const char *argv[])
   int addrlen, sock, packetLength;
   struct ip_mreq mreq;
   uint8_t packet[1452]; // A Livewire packet will never be larger than 1452 bytes. 
-  uint16_t sequenceNumber;
-  uint32_t timestamp;
+  //uint16_t sequenceNumber;
+  //uint32_t timestamp;
   double audioPayload[480]; // 480 audio samples per packet (max.) 
   ebur128_state* state = NULL;
   double shortTermLoudness;
