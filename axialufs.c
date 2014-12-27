@@ -65,7 +65,7 @@ int main(int argc, const char *argv[])
 
     ebur128_add_frames_double(state, audioPayload, (size_t) ((packetLength - 12) / 6));
     frameCounter += ((packetLength - 12) / 6);
-    if (frameCounter >= 4800) {
+    if (frameCounter >= 4799) {
       frameCounter = 0;
       ebur128_loudness_shortterm(state, &shortTermLoudness);
       //ebur128_loudness_momentary(state, &momentaryLoudness);
