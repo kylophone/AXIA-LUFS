@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
-#include "ebur128.h"
+#include <ebur128.h>
 
 int main(int argc, const char *argv[])
 {
