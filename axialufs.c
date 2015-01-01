@@ -8,8 +8,7 @@
 #include <string.h>
 #include <ebur128.h>
 
-
-int config_livewire_socket(const char *multicastAddr)
+int config_livewire_socket(char *multicastAddr)
 {
   int sock = socket(AF_INET, SOCK_DGRAM, 0);
   int reuse = 1;
@@ -37,39 +36,42 @@ int config_livewire_socket(const char *multicastAddr)
       fprintf(stderr, "bind: %d\n", errno);
       return -1;
   }
-
   return sock;
 }
 
-
-int main(int argc, const char *argv[])
+char* lw_mc_addr(int channelNumber)
 {
-  
-  int packetLength;
-  uint8_t packet[1452]; // A Livewire packet will never be larger than 1452 bytes. 
-  //uint16_t sequenceNumber;
-  //uint32_t timestamp;
-  double audioPayload[480]; // 480 audio samples per packet (max.) 
-  ebur128_state* state = NULL;
+  struct in_addr addr;
+  addr.s_addr = htonl(0xEFC00000 + channelNumber);
+  char *s = inet_ntoa(addr);
+  return s;
+}
+
+int main(int argc, const char *argv[]){
+
+  if (argc != 2) {
+    printf("Usage: axialufs <LW channel>\n");
+    return 1;
+  }
+
+  int axiaChannel = atoi(argv[1]);
   double shortTermLoudness;
   uint16_t frameCounter = 0;
-  const char *multicastAddr = argv[1];
- 
-  int sock = config_livewire_socket(multicastAddr);
+  int packetLength;
+  uint8_t packet[1452]; // A Livewire packet will never be larger than 1452 bytes. 
+  double audioPayload[480]; // 480 audio samples per packet (max.) 
+  ebur128_state* state = ebur128_init(2, 48000, EBUR128_MODE_S);
+  int sock = config_livewire_socket(lw_mc_addr(axiaChannel));
 
-  state = ebur128_init((unsigned) 2, (unsigned) 48000, EBUR128_MODE_S);
-
-  /* main loop */
   while(1){
     packetLength = recv(sock, packet, sizeof(packet), 0);
-    
-    //sequenceNumber = (packet[2] << 8 | packet[3]);
-    //timestamp = (packet[4] << 24 | packet[5] << 16 | packet[6] << 8 | packet[7]);
+    //uint16_t sequenceNumber = (packet[2] << 8 | packet[3]);
+    //uint32_t timestamp = (packet[4] << 24 | packet[5] << 16 | packet[6] << 8 | packet[7]);
 
-    /* Sample: 3 bytes. Header: 12 bytes. Payload: Variable. */
+    /* RTP Header: 12 bytes. Payload: Variable. Each sample: 3 bytes. */
     for (int i = 12; i < packetLength; i += 3) {
       int32_t audioPCM = ((packet[i] << 16) | (packet[i + 1] << 8) | (packet[i + 2]));
-      if (audioPCM & 0x800000) audioPCM |= ~0xffffff; // Convert to signed PCM.
+      if (audioPCM & 0x800000) audioPCM |= ~0xffffff; // Convert to signed PCM_24.
       double audioFloat = (audioPCM * (1.0 / 0x7fffff)); // Convert to float.
       audioPayload[((i - 12) / 3)] = audioFloat;
     }
@@ -79,7 +81,6 @@ int main(int argc, const char *argv[])
     if (frameCounter >= 4799) {
       frameCounter = 0;
       ebur128_loudness_shortterm(state, &shortTermLoudness);
-      //ebur128_loudness_momentary(state, &momentaryLoudness);
       fprintf(stderr, "%-2.1f\n", shortTermLoudness);
     } 
   }
