@@ -59,7 +59,7 @@ int main(int argc, const char *argv[]){
   uint16_t frameCounter = 0;
   int packetLength;
   uint8_t packet[1452]; // A Livewire packet will never be larger than 1452 bytes. 
-  double audioPayload[480]; // 480 audio samples per packet (max.) 
+  double audioPayload[60]; // 60 audio samples per packet (max.) 
   ebur128_state* state = ebur128_init(2, 48000, EBUR128_MODE_S);
   int sock = config_livewire_socket(lw_mc_addr(axiaChannel));
 
